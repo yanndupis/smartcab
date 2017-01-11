@@ -2,7 +2,7 @@
 ## Project: Train a Smartcab How to Drive
 
 ### Project Overview
-In this project you will apply reinforcement learning techniques for a self-driving agent in a simplified world to aid it in effectively reaching its destinations in the allotted time.
+In this project we will apply reinforcement learning techniques for a self-driving agent in a simplified world to aid it in effectively reaching its destinations in the allotted time.
 
 ### Install
 
