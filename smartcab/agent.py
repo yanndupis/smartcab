@@ -65,7 +65,7 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # Set 'state' as a tuple of relevant data for the agent
-        state = str((inputs['light'],inputs['left'],inputs['oncoming'],waypoint))
+        state = (inputs['light'],inputs['left'],inputs['oncoming'],waypoint)
 
         return state
 
@@ -116,11 +116,16 @@ class LearningAgent(Agent):
         # When learning, choose a random action with 'epsilon' probability
         #   Otherwise, choose an action with the highest Q-value for the current state
         if self.learning==False:
-            action=random.choice(self.valid_actions[1:])
+            action=random.choice(self.valid_actions)
         else:
-            for act in self.valid_actions:
-                if self.Q[state][act] == self.get_maxQ(state):
-                    action = act
+            if self.epsilon>random.random():
+                action = random.choice(self.valid_actions)
+            else:
+                maxq_lst=[]
+                for act in self.valid_actions:
+                    if self.Q[state][act] == self.get_maxQ(state):
+                        maxq_lst.append(act)
+                action = random.choice(maxq_lst)
 
         return action
 
@@ -173,7 +178,7 @@ def run():
     #   learning   - set to True to force the driving agent to use Q-learning
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
-    agent = env.create_agent(LearningAgent,learning=True,alpha=0.8,epsilon=1)
+    agent = env.create_agent(LearningAgent,learning=True,alpha=0.9,epsilon=1)
 
     ##############
     # Follow the driving agent
